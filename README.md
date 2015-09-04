@@ -27,9 +27,129 @@ Per https://get.docker.com/, there are currently three repositories for Docker:
 main, testing & experimental.  Main is the stable repository.  Testing is for
 test builds (ie. release candidates).  Experimental is for experimental builds.
 
+- `['apt-docker']['supported-codenames']`
+  - _Type:_ Hash
+
+  - _Description:_
+
+    Debian-ish platform support for this cookbook and the Docker repository.
+    Designed to be a private attribute however it can be overridden in the case
+    Docker supports additional platforms and this cookbook has not been updated
+    yet.
+
+    This check was implemented as a result of the repo could be successfully
+    installed yet not be valid for a given platform and a Docker package could
+    be successfully installed as a result of it being available natively on the
+    platform it which it was run which results in a false positive for the
+    consumer of the cookbook.
+
+    The hash key is the codename of the OS/version.  If the hash value evaluates
+    to true, the OS/version is considered supported.
+
+  - _Default:_
+
+    ```ruby
+    {
+      wheezy: true,  # Debian 7.x
+      jessie: true,  # Debian 8.x
+      stretch: true, # Debian 9.x
+      precise: true, # Ubuntu 12.04
+      trusty: true,  # Ubuntu 14.04
+      utopic: true,  # Ubuntu 14.10
+      vivid: true,   # Ubuntu 15.04
+      wily: true,    # Ubuntu 15.10
+    }
+    ```
 - Docker Main Repo
+  - `['apt-nginx']['repos']['docker-main']['managed']`
+    - _Type:_ Boolean
+    - _Description:_ Does this cookbook manage the install of the Docker Main
+      Repo?
+    - _Default:_ `true`
+  - `['apt-nginx']['repos']['docker-main']['uri']`
+    - _Type:_ String
+    - _Description:_ URI of Docker Main Repo
+    - _Default:_ `https://apt.dockerproject.org/repo`
+  - `['apt-nginx']['repos']['docker-main']['distribution']`
+    - _Type:_ String
+    - _Description:_ Package distribution of Docker Main Repo
+    - _Default:_ `#{node['platform']}-#{node['lsb']['codename']}`
+  - `['apt-nginx']['repos']['docker-main']['components']`
+    - _Type:_ String
+    - _Description:_ Docker Main Repo Package Groupings
+    - _Default:_ `['main']`
+  - `['apt-nginx']['repos']['docker-main']['deb-src']`
+    - _Type:_ String
+    - _Description:_ Whether or not to add the Docker Main Source Repo?
+    - _Default:_ `false`
+  - `['apt-nginx']['repos']['docker-main']['keyserver']`
+    - _Type:_ String
+    - _Description:_ GPG keyserver for the Docker Main Repo
+    - _Default:_ `hkp://p80.pool.sks-keyservers.net:80`
+  - `['apt-nginx']['repos']['docker-main']['key']`
+    - _Type:_ String
+    - _Description:_ GPG fingerprint for the Docker Main Repo
+    - _Default:_ `58118E89F3A912897C070ADBF76221572C52609D`
 - Docker Testing Repo
+- `['apt-nginx']['repos']['docker-testing']['managed']`
+  - _Type:_ Boolean
+  - _Description:_ Does this cookbook manage the install of the Docker Testing
+    Repo?
+  - _Default:_ `false`
+- `['apt-nginx']['repos']['docker-testing']['uri']`
+  - _Type:_ String
+  - _Description:_ URI of Docker Testing Repo
+  - _Default:_ `https://apt.dockerproject.org/repo`
+- `['apt-nginx']['repos']['docker-testing']['distribution']`
+  - _Type:_ String
+  - _Description:_ Package distribution of Docker Testing Repo
+  - _Default:_ `#{node['platform']}-#{node['lsb']['codename']}`
+- `['apt-nginx']['repos']['docker-testing']['components']`
+  - _Type:_ String
+  - _Description:_ Docker Testing Repo Package Groupings
+  - _Default:_ `['testing']`
+- `['apt-nginx']['repos']['docker-testing']['deb-src']`
+  - _Type:_ String
+  - _Description:_ Whether or not to add the Docker Testing Source Repo?
+  - _Default:_ `false`
+- `['apt-nginx']['repos']['docker-testing']['keyserver']`
+  - _Type:_ String
+  - _Description:_ GPG keyserver for the Docker Testing Repo
+  - _Default:_ `hkp://p80.pool.sks-keyservers.net:80`
+- `['apt-nginx']['repos']['docker-testing']['key']`
+  - _Type:_ String
+  - _Description:_ GPG fingerprint for the Docker Testing Repo
+  - _Default:_ `58118E89F3A912897C070ADBF76221572C52609D`
 - Docker Experimental Repo
+  - `['apt-nginx']['repos']['docker-experimental']['managed']`
+    - _Type:_ Boolean
+    - _Description:_ Does this cookbook manage the install of the Docker
+      Experimental Repo?
+    - _Default:_ `true`
+  - `['apt-nginx']['repos']['docker-experimental']['uri']`
+    - _Type:_ String
+    - _Description:_ URI of Docker Experimental Repo
+    - _Default:_ `https://apt.dockerproject.org/repo`
+  - `['apt-nginx']['repos']['docker-experimental']['distribution']`
+    - _Type:_ String
+    - _Description:_ Package distribution of Docker Experimental Repo
+    - _Default:_ `#{node['platform']}-#{node['lsb']['codename']}`
+  - `['apt-nginx']['repos']['docker-experimental']['components']`
+    - _Type:_ String
+    - _Description:_ Docker Experimental Repo Package Groupings
+    - _Default:_ `['experimental']`
+  - `['apt-nginx']['repos']['docker-experimental']['deb-src']`
+    - _Type:_ String
+    - _Description:_ Whether or not to add the Docker Experimental Source Repo?
+    - _Default:_ `false`
+  - `['apt-nginx']['repos']['docker-experimental']['keyserver']`
+    - _Type:_ String
+    - _Description:_ GPG keyserver for the Docker Experimental Repo
+    - _Default:_ `hkp://p80.pool.sks-keyservers.net:80`
+  - `['apt-nginx']['repos']['docker-experimental']['key']`
+    - _Type:_ String
+    - _Description:_ GPG fingerprint for the Docker Experimental Repo
+    - _Default:_ `58118E89F3A912897C070ADBF76221572C52609D`
 
 Usage
 -----
