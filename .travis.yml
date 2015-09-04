@@ -1,0 +1,33 @@
+# http://www.invalidchecksum.net/2015/08/travis-ci-gce-docker-test-kitchen.html
+language: ruby
+
+bundler_args: --without local-integration
+
+sudo: required
+
+services:
+  - docker
+
+# attempt to speed up build by installing Gecode 3.7.3 from Ubuntu 12.04
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libqt4-dev libqtcore4 libqtgui4 libboost-dev
+  - curl -O http://lug.mtu.edu/ubuntu/pool/universe/g/gecode/libgecode-dev_3.7.1-3_amd64.deb
+  - curl -O http://lug.mtu.edu/ubuntu/pool/universe/g/gecode/libgecode-doc_3.7.1-3_all.deb
+  - curl -O http://lug.mtu.edu/ubuntu/pool/universe/g/gecode/libgecode30_3.7.1-3_amd64.deb
+  - curl -O http://lug.mtu.edu/ubuntu/pool/universe/g/gecode/libgecodeflatzinc30_3.7.1-3_amd64.deb
+  - curl -O http://lug.mtu.edu/ubuntu/pool/universe/g/gecode/libgecodegist30_3.7.1-3_amd64.deb
+
+install:
+  - sudo dpkg -i *.deb
+  - bundle install
+
+script:
+  - bundle exec rake style
+  - bundle exec rake unit
+  - bundle exec kitchen test -d never
+
+env:
+  global:
+    - USE_SYSTEM_GECODE=1
+    - KITCHEN_YAML=.kitchen.docker.yml

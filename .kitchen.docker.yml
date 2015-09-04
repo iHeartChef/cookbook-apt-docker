@@ -1,0 +1,56 @@
+driver:
+  name: docker
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  # https://hub.docker.com/_/debian/
+  # - name: debian-7 # cannot get dependencies satisfied
+  - name: debian-8
+
+  # https://hub.docker.com/_/ubuntu/
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-14.10
+  - name: ubuntu-15.04
+  - name: ubuntu-15.10
+
+suites:
+  - name: default
+    run_list:
+      - recipe[test::install_apt_https]
+      - recipe[apt-docker]
+      - recipe[test::install_docker]
+
+  - name: testing
+    run_list:
+      - recipe[test::install_apt_https]
+      - recipe[apt-docker]
+      - recipe[test::install_docker]
+    excludes:
+      - ubuntu-14.10 # test fails, no candidate version available
+    attributes:
+      apt-docker:
+        repos:
+          docker-main:
+            managed: false
+          docker-testing:
+            managed: true
+          docker-experimental:
+            managed: false
+
+  - name: experimental
+    run_list:
+      - recipe[test::install_apt_https]
+      - recipe[apt-docker]
+      - recipe[test::install_docker]
+    attributes:
+      apt-docker:
+        repos:
+          docker-main:
+            managed: false
+          docker-testing:
+            managed: false
+          docker-experimental:
+            managed: true
