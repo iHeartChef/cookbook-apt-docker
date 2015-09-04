@@ -27,6 +27,10 @@ Per https://get.docker.com/, there are currently three repositories for Docker:
 main, testing & experimental.  Main is the stable repository.  Testing is for
 test builds (ie. release candidates).  Experimental is for experimental builds.
 
+- Docker Main Repo
+- Docker Testing Repo
+- Docker Experimental Repo
+
 Usage
 -----
 #### apt-docker::default
