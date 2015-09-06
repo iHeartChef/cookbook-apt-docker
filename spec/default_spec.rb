@@ -8,7 +8,9 @@ platform_test_matrix = {
   ubuntu: {
     '12.04': 'precise',
     '14.04': 'trusty',
-    '14.10': 'utopic'
+    '14.10': 'utopic',
+    '15.04': 'vivid',
+    '15.10': 'wily'
   }
 }
 
