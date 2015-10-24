@@ -22,7 +22,8 @@ group :'local-integration' do
 end
 
 group :'ci-integration' do
-  gem 'kitchen-docker-api'
+  # gem 'kitchen-docker-api'
+  gem 'kitchen-docker'
 end
 
 # publish
