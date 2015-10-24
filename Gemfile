@@ -4,8 +4,7 @@ gem 'rake'
 
 # style
 gem 'foodcritic'
-# https://github.com/bbatsov/rubocop/issues/2218
-gem 'rubocop', '~> 0.33.0', require: false
+gem 'rubocop', require: false
 
 # unit
 gem 'rspec'
