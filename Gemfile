@@ -15,15 +15,10 @@ gem 'berkshelf'
 # integration
 gem 'serverspec'
 gem 'test-kitchen'
+gem 'kitchen-docker'
 
 group :'local-integration' do
-  gem 'kitchen-docker'
   gem 'kitchen-vagrant'
-end
-
-group :'ci-integration' do
-  # gem 'kitchen-docker-api'
-  gem 'kitchen-docker'
 end
 
 # publish
