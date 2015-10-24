@@ -12,7 +12,7 @@ platforms:
   # https://hub.docker.com/_/ubuntu/
   - name: ubuntu-12.04
   - name: ubuntu-14.04
-  - name: ubuntu-14.10
+  # - name: ubuntu-14.10 # apt sources yield 404's
   - name: ubuntu-15.04
   - name: ubuntu-15.10
 
